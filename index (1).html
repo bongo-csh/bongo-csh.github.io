@@ -1,0 +1,496 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的生日庆祝</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // 配置Tailwind自定义颜色和字体
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        birthday: {
+                            pink: '#FF6B8B',
+                            blue: '#6B9FFF',
+                            yellow: '#FFD166',
+                            purple: '#A78BFA',
+                            green: '#6EE7B7'
+                        }
+                    },
+                    fontFamily: {
+                        celebration: ['"Comic Sans MS"', '"Marker Felt"', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .text-shadow-lg {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+            }
+            .animate-float {
+                animation: float 3s ease-in-out infinite;
+            }
+            .animate-spin-slow {
+                animation: spin 8s linear infinite;
+            }
+            .animate-pulse-slow {
+                animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-birthday-pink/10 to-birthday-blue/10 min-h-screen font-celebration overflow-x-hidden">
+    <!-- 顶部导航 -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 shadow-md transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-birthday-pink flex items-center">
+                <i class="fa fa-birthday-cake mr-2 animate-spin-slow"></i>
+                <span>我的生日</span>
+            </h1>
+            <div class="hidden md:flex space-x-6">
+                <a href="#countdown" class="hover:text-birthday-pink transition-colors">倒计时</a>
+                <a href="#gallery" class="hover:text-birthday-pink transition-colors">照片墙</a>
+                <a href="#wishes" class="hover:text-birthday-pink transition-colors">祝福</a>
+                <a href="#about" class="hover:text-birthday-pink transition-colors">关于</a>
+            </div>
+            <button class="md:hidden text-xl" id="menuToggle">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white px-4 py-2 shadow-lg">
+            <div class="flex flex-col space-y-3 pb-3">
+                <a href="#countdown" class="hover:text-birthday-pink transition-colors">倒计时</a>
+                <a href="#gallery" class="hover:text-birthday-pink transition-colors">照片墙</a>
+                <a href="#wishes" class="hover:text-birthday-pink transition-colors">祝福</a>
+                <a href="#about" class="hover:text-birthday-pink transition-colors">关于</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <header class="pt-24 pb-16 md:pt-32 md:pb-24 px-4 text-center relative overflow-hidden">
+        <!-- 装饰元素 -->
+        <div class="absolute -top-10 -left-10 w-40 h-40 bg-birthday-yellow/30 rounded-full blur-3xl"></div>
+        <div class="absolute top-20 -right-20 w-60 h-60 bg-birthday-pink/30 rounded-full blur-3xl"></div>
+        
+        <div class="container mx-auto relative z-10">
+            <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-bold text-shadow-lg mb-4 text-birthday-pink animate-pulse-slow">
+                我的生日！
+            </h1>
+            <p class="text-[clamp(1.2rem,3vw,1.8rem)] text-gray-700 mb-8 max-w-2xl mx-auto">
+                姓名:成诗豪(刘禹锡)————年龄(过完生日后):15————性别:不知道打死你😡
+            </p>
+            <div class="inline-block bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg">
+                <p class="text-[clamp(1rem,2vw,1.25rem)]">
+                    <i class="fa fa-calendar text-birthday-blue mr-2"></i>
+                    日期: 2025年09月30日
+                </p>
+            </div>
+        </div>
+        
+        <!-- 漂浮气球装饰 -->
+        <div class="absolute top-1/4 left-[10%] w-12 h-12 bg-birthday-pink rounded-full animate-float" style="animation-delay: 0s;"></div>
+        <div class="absolute top-1/3 left-[85%] w-10 h-10 bg-birthday-blue rounded-full animate-float" style="animation-delay: 0.5s;"></div>
+        <div class="absolute top-1/2 left-[5%] w-14 h-14 bg-birthday-yellow rounded-full animate-float" style="animation-delay: 1s;"></div>
+        <div class="absolute top-2/3 left-[90%] w-8 h-8 bg-birthday-purple rounded-full animate-float" style="animation-delay: 1.5s;"></div>
+    </header>
+
+    <!-- 倒计时区域 -->
+    <section id="countdown" class="py-16 px-4 bg-white/70 backdrop-blur-sm">
+        <div class="container mx-auto">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-12 text-birthday-purple">
+                <i class="fa fa-clock-o mr-2"></i>生日倒计时
+            </h2>
+            
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8">
+                <div class="countdown-item bg-white rounded-xl shadow-lg p-4 md:p-6 text-center min-w-[100px] transform transition-transform hover:scale-105">
+                    <div id="days" class="text-[clamp(2rem,5vw,3rem)] font-bold text-birthday-pink">00</div>
+                    <div class="text-gray-600">天</div>
+                </div>
+                <div class="countdown-item bg-white rounded-xl shadow-lg p-4 md:p-6 text-center min-w-[100px] transform transition-transform hover:scale-105">
+                    <div id="hours" class="text-[clamp(2rem,5vw,3rem)] font-bold text-birthday-blue">00</div>
+                    <div class="text-gray-600">时</div>
+                </div>
+                <div class="countdown-item bg-white rounded-xl shadow-lg p-4 md:p-6 text-center min-w-[100px] transform transition-transform hover:scale-105">
+                    <div id="minutes" class="text-[clamp(2rem,5vw,3rem)] font-bold text-birthday-yellow">00</div>
+                    <div class="text-gray-600">分</div>
+                </div>
+                <div class="countdown-item bg-white rounded-xl shadow-lg p-4 md:p-6 text-center min-w-[100px] transform transition-transform hover:scale-105">
+                    <div id="seconds" class="text-[clamp(2rem,5vw,3rem)] font-bold text-birthday-green">00</div>
+                    <div class="text-gray-600">秒</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 照片墙区域 -->
+    <section id="gallery" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-12 text-birthday-blue">
+                <i class="fa fa-photo mr-2"></i>美好回忆
+            </h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 照片项 -->
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <img src="https://ts2.tc.mm.bing.net/th/id/OIP-C.j57souiFOvYA0LUiw-2BkAHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="生日派对照片" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <p class="text-white p-4">图片一</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <img src="https://ts2.tc.mm.bing.net/th/id/OIP-C.j57souiFOvYA0LUiw-2BkAHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="与朋友的合影" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <p class="text-white p-4">图片二</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <img src="https://ts2.tc.mm.bing.net/th/id/OIP-C.j57souiFOvYA0LUiw-2BkAHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="生日蛋糕" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <p class="text-white p-4">图片三</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <img src="https://ts2.tc.mm.bing.net/th/id/OIP-C.j57souiFOvYA0LUiw-2BkAHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="收到的礼物" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <p class="text-white p-4">图片四</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <img src="https://ts2.tc.mm.bing.net/th/id/OIP-C.j57souiFOvYA0LUiw-2BkAHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="吹蜡烛瞬间" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <p class="text-white p-4">图片五</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item group relative overflow-hidden rounded-xl shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <img src="https://ts2.tc.mm.bing.net/th/id/OIP-C.j57souiFOvYA0LUiw-2BkAHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="生日聚餐" class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <p class="text-white p-4">图片六</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 祝福区域 -->
+    <section id="wishes" class="py-16 px-4 bg-gradient-to-br from-birthday-purple/10 to-birthday-blue/10">
+        <div class="container mx-auto">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-12 text-birthday-pink">
+                <i class="fa fa-heart mr-2"></i>生日祝福
+            </h2>
+            
+            <!-- 祝福表单 -->
+            <div class="max-w-2xl mx-auto bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-6 md:p-8 mb-12">
+                <h3 class="text-xl font-bold mb-4 text-center">留下你的祝福</h3>
+                <form id="wishForm" class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-gray-700 mb-1">你的名字(或称呼)</label>
+                        <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-birthday-pink focus:border-transparent transition-all" required="">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-gray-700 mb-1">祝福语</label>
+                        <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-birthday-pink focus:border-transparent transition-all" required=""></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-birthday-pink text-white py-3 rounded-lg hover:bg-birthday-pink/90 transition-colors font-bold text-lg">
+                        发送祝福
+                    </button>
+                </form>
+            </div>
+            
+            <!-- 祝福列表 -->
+            <div id="wishesList" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <!-- 示例祝福 -->
+                <div class="bg-white rounded-xl shadow-md p-6 transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-birthday-blue/20 flex items-center justify-center text-birthday-blue mr-3">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <h4 class="font-bold">示例一</h4>
+                    </div>
+                    <p class="text-gray-700">"祝生日快乐，祝你一千米早日破三！"</p>
+                    <p class="text-right text-sm text-gray-500 mt-3">2025-09-15</p>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-birthday-pink/20 flex items-center justify-center text-birthday-pink mr-3">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <h4 class="font-bold">示例二</h4>
+                    </div>
+                    <p class="text-gray-700">"生日快乐！希望你每天都开开心心，天天向上！"</p>
+                    <p class="text-right text-sm text-gray-500 mt-3">2025-09-10</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于区域 -->
+    <section id="about" class="py-16 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-12 text-birthday-yellow">
+                <i class="fa fa-info-circle mr-2"></i>关于我的生日
+            </h2>
+            
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/3">
+                        <img src="https://picsum.photos/seed/birthday-profile/400/600" alt="我的照片" class="w-full h-full object-cover">
+                    </div>
+                    <div class="md:w-2/3 p-6 md:p-8">
+                        <h3 class="text-2xl font-bold mb-4 text-birthday-purple">生日计划</h3>
+                        <p class="mb-4 text-gray-700">今年的生日我打算和家人朋友一起吃蛋糕，时间是晚上7点开始。</p>
+                        
+                        <h3 class="text-xl font-bold mt-6 mb-3 text-birthday-blue">派对安排</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-birthday-green mt-1 mr-2"></i>
+                                <span>19:00 - 签到和交流</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-birthday-green mt-1 mr-2"></i>
+                                <span>20:00 - 切蛋糕和许愿</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-birthday-green mt-1 mr-2"></i>
+                                <span>20:30 - 游戏和互动环节</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-birthday-green mt-1 mr-2"></i>
+                                <span>21:30 - 自由交流和庆祝</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="mt-8 bg-birthday-pink/10 p-4 rounded-lg">
+                            <h4 class="font-bold text-birthday-pink mb-2">联系我</h4>
+                            <p class="text-gray-700 flex items-center mb-1">
+                                <i class="fa fa-phone mr-2"></i> 18316678863
+                            </p>
+                            <p class="text-gray-700 flex items-center">
+                                <i class="fa fa-envelope mr-2"></i> 3219367211@qq.com
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8 px-4">
+        <div class="container mx-auto text-center">
+            <h3 class="text-xl font-bold mb-4">欢迎你的到来！</h3>
+            <p class="mb-6">让我们一起庆祝这个特别的日子</p>
+            <div class="flex justify-center space-x-4 mb-6">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-birthday-pink transition-colors">
+                    <i class="fa fa-weixin"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-birthday-blue transition-colors">
+                    <i class="fa fa-weibo"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-birthday-yellow transition-colors">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </div>
+            <p class="text-gray-400 text-sm">© 2025 我的生日网站 | 成诗豪本人制作</p>
+        </div>
+    </footer>
+
+    <!-- 回到顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-birthday-pink text-white shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-birthday-pink/90">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 移动端菜单切换
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 关闭移动端菜单
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 倒计时功能
+        function updateCountdown() {
+            // 设置生日日期 - 已更新为2025年09月30日
+            const birthday = new Date('2025-09-30T00:00:00');
+            const now = new Date();
+            
+            // 计算时间差
+            let diff = birthday - now;
+            
+            // 如果已经过了今年的生日，计算到明年的
+            if (diff < 0) {
+                birthday.setFullYear(birthday.getFullYear() + 1);
+                diff = birthday - now;
+            }
+            
+            // 转换为天、时、分、秒
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            // 更新DOM
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // 初始化倒计时并每秒更新
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // 祝福表单提交
+        const wishForm = document.getElementById('wishForm');
+        const wishesList = document.getElementById('wishesList');
+        
+        wishForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('message').value;
+            
+            // 创建新祝福元素
+            const wishElement = document.createElement('div');
+            wishElement.className = 'bg-white rounded-xl shadow-md p-6 transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1 animate-float';
+            
+            // 随机颜色
+            const colors = ['pink', 'blue', 'yellow', 'purple', 'green'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // 设置祝福内容
+            wishElement.innerHTML = `
+                <div class="flex items-center mb-3">
+                    <div class="w-10 h-10 rounded-full bg-birthday-${randomColor}/20 flex items-center justify-center text-birthday-${randomColor} mr-3">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <h4 class="font-bold">${name}</h4>
+                </div>
+                <p class="text-gray-700">"${message}"</p>
+                <p class="text-right text-sm text-gray-500 mt-3">${new Date().toLocaleDateString()}</p>
+            `;
+            
+            // 添加到列表顶部
+            wishesList.prepend(wishElement);
+            
+            // 重置表单
+            wishForm.reset();
+            
+            // 显示成功提示
+            alert('祝福发送成功！');
+        });
+        
+        // 回到顶部按钮
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+            
+            // 导航栏滚动效果
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('py-2');
+                nav.classList.remove('py-3');
+            } else {
+                nav.classList.add('py-3');
+                nav.classList.remove('py-2');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 添加更多漂浮气球动画
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            const size = Math.random() * 30 + 10; // 10-40px
+            const colors = ['bg-birthday-pink', 'bg-birthday-blue', 'bg-birthday-yellow', 'bg-birthday-purple', 'bg-birthday-green'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            balloon.className = `fixed rounded-full ${color} opacity-70`;
+            balloon.style.width = `${size}px`;
+            balloon.style.height = `${size}px`;
+            balloon.style.left = `${Math.random() * 100}vw`;
+            balloon.style.bottom = `-50px`;
+            balloon.style.zIndex = '1';
+            
+            document.body.appendChild(balloon);
+            
+            // 动画
+            const duration = Math.random() * 20 + 10; // 10-30秒
+            balloon.animate([
+                { transform: 'translateY(0)' },
+                { transform: `translateY(-${window.innerHeight + 100}px)` }
+            ], {
+                duration: duration * 1000,
+                easing: 'linear'
+            });
+            
+            // 移除气球
+            setTimeout(() => {
+                balloon.remove();
+            }, duration * 1000);
+        }
+        
+        // 定时创建气球
+        setInterval(createBalloon, 2000);
+        // 初始创建一些气球
+        for (let i = 0; i < 5; i++) {
+            createBalloon();
+        }
+    </script>
+
+
+</body></html>
